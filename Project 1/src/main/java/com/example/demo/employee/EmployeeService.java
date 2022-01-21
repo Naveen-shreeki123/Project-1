@@ -22,17 +22,29 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public void addNewEmployee(Employee employee) {
+    public void addNewEmployee(Employee employee)
+    {
+        // Logging an Exception if the data is already present.
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(employee.getEmail());
+        if(employeeOptional.isPresent()){
+            throw new IllegalStateException("Employee data already exist !!!");
+        }
         employeeRepository.save(employee);
     }
 
     public void deleteEmployee(Long employeeId){
+        // Logging an Exception if user tries to delete a data which is not present.
+        boolean exists = employeeRepository.existsById(employeeId);
+        if(!exists){
+            throw new IllegalStateException("Employee with employee ID "+ employeeId +" not found !!!");
+        }
         employeeRepository.deleteById(employeeId);
     }
 
     @Transactional
     public void updateEmployee(Long employeeId, String name, String email) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new IllegalStateException("Id not present"));
+        // Logging an Exception if user tries to delete a data which is not present.
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new IllegalStateException("Employee with employee ID "+ employeeId +" not found !!!"));
 
         if(name != null && name.length() > 0 && !Objects.equals(employee.getName(),name)){
             employee.setName(name);
