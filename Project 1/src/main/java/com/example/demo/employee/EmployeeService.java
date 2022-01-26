@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 
 @Service
 public class EmployeeService {
@@ -25,9 +25,10 @@ public class EmployeeService {
     public void addNewEmployee(Employee employee)
     {
         // Logging an Exception if the data is already present.
-        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(employee.getEmail());
-        if(employeeOptional.isPresent()){
-            throw new IllegalStateException("Employee data already exist !!!");
+        Boolean exists = employeeRepository.findEmployeeByEmail(employee.getEmail());
+        if(exists){
+            throw new IllegalStateException(
+                    "Email " + employee.getEmail() + " taken");
         }
         employeeRepository.save(employee);
     }
