@@ -1,5 +1,8 @@
 package com.example.demo.employee;
 
+import com.example.demo.employee.Model.Employee;
+import com.example.demo.employee.Repository.EmployeeRepository;
+import com.example.demo.employee.Service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +36,7 @@ class EmployeeServiceTest {
     @Test
     void addNewEmployee() {
         //given
-        Employee employee = new Employee("Shyam","shyam@gmail.com","887643321",21,27000,"Q/A");
+        Employee employee = new Employee("Shyam","shyam@gmail.com","887643321",21,27000,1);
         //when
         underTest.addNewEmployee(employee);
         //then
@@ -48,8 +51,7 @@ class EmployeeServiceTest {
     @Test
     void deleteEmployee() {
         long id = 10;
-        given(employeeRepository.existsById(id))
-                .willReturn(true);
+        given(employeeRepository.existsById(id)).willReturn(true);
         // when
         underTest.deleteEmployee(id);
         // then

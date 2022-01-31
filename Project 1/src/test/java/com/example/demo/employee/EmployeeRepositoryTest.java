@@ -1,4 +1,6 @@
 package com.example.demo.employee;
+import com.example.demo.employee.Model.Employee;
+import com.example.demo.employee.Repository.EmployeeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ class EmployeeRepositoryTest {
     void CheckTestfindEmployeeByEmail() {
         //given
         String email = "shyam@gmail.com";
-        Employee employee = new Employee("Shyam","shyam@gmail.com","887643321",21,27000,"Q/A");
+        Employee employee = new Employee("Shyam","shyam@gmail.com","887643321",21,27000,1);
         underTest.save(employee);
 
         //when

@@ -1,4 +1,4 @@
-package com.example.demo.employee;
+package com.example.demo.employee.Model;
 
 import javax.persistence.*;
 
@@ -21,28 +21,31 @@ public class Employee {
     private String phnumber;
     private int age;
     private int salary;
-    private String department;
+    private long DepartmentId;
+
+    @ManyToOne
+    private Department department;
 
     public Employee() {
     }
 
-    public Employee(long id, String name, String email, String phnumber, int age, int salary, String department) {
+    public Employee(long id, String name, String email, String phnumber, int age, int salary, long DepartmentId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phnumber = phnumber;
         this.age = age;
         this.salary = salary;
-        this.department = department;
+        this.DepartmentId = DepartmentId;
     }
 
-    public Employee(String name, String email, String phnumber, int age, int salary, String department) {
+    public Employee(String name, String email, String phnumber, int age, int salary, long DepartmentId) {
         this.name = name;
         this.email = email;
         this.phnumber = phnumber;
         this.age = age;
         this.salary = salary;
-        this.department = department;
+        this.DepartmentId = DepartmentId;
     }
 
     public long getId() {
@@ -93,12 +96,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getDepartment() {
-        return department;
+    public long getDepartmentId() {
+        return DepartmentId;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentId(long departmentId) {
+        DepartmentId = departmentId;
     }
 
     @Override
@@ -110,7 +113,7 @@ public class Employee {
                 ", phnumber='" + phnumber + '\'' +
                 ", age=" + age +
                 ", salary=" + salary +
-                ", department='" + department + '\'' +
+                ", departmentId='" + DepartmentId + '\'' +
                 '}';
     }
 }
